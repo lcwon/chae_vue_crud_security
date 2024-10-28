@@ -15,5 +15,7 @@ COPY --from=build-stage /app/nginx.conf /etc/nginx/conf.d/default.conf
 ENV BACKEND_API_URL backend
 RUN sed -i "s|backend_host|$BACKEND_API_URL|g" -i /etc/nginx/conf.d/default.conf
 
+ENV SPRING_PROFILES_ACTIVE=dev
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
