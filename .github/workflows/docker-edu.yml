@@ -35,6 +35,8 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver: container
 
       # ACR로 로그인 설정
       - name: Log into ACR ${{ env.REGISTRY }}
@@ -61,6 +63,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64
+
 
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
